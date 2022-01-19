@@ -1,3 +1,6 @@
-Welcome {{ user.first_name }} {{ user.last_name }}!
-
-{{ user.team_name }}
+<div *ngIf="user">
+  Welcome {{ user.first_name }}
+</div>
+<div *ngIf="!user">
+  Not logged in
+</div>
