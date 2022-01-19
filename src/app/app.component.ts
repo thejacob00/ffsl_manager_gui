@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ffsl-manager-gui';
+  user: any = {first_name:"ryan", last_name:"taylor", team_name:"steelers"}
 }
