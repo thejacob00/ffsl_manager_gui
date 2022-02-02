@@ -8,8 +8,21 @@ import { GetTeamService } from './get-team.service';
 })
 export class AppComponent {
 
-  constructor(private getTeamService: GetTeamService) {}
+  user: any = [];
+  constructor(private getTeamService: GetTeamService) {
+  }
+  
+  ngOnInit(): void {
+    this.readTeamInfo();
+  }
+  readTeamInfo(): void {
+    this.getTeamService.getTeamInfoFromCreds('jphelps', 'password').subscribe((data) => {
+      this.user = data;
+      console.log(this.user);
+    });
+  }
+  
 
   title = 'ffsl-manager-gui';
-  user: any = this.getTeamService.getTeamInfo(1);
+  
 }

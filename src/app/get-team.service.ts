@@ -12,4 +12,10 @@ export class GetTeamService {
   {
     return this.httpClient.get('http://localhost:8000/user/' + encodeURIComponent(id));
   }
+
+  getTeamInfoFromCreds(username: any, password: any)
+  {
+    const data = {username: username, password: password};
+    return this.httpClient.post<any>('http://localhost:8000/login/', data);
+  }
 }
