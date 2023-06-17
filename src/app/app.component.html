@@ -4,3 +4,18 @@
 <div *ngIf="!user">
   Not logged in
 </div>
+<div *ngIf="rosters">
+  <div *ngFor="let team of teams">
+    <h3>{{ team }} - ${{ rosters[team].cap_space }}</h3>
+    <table>
+      <tr>
+        <th>Player</th>
+        <th>Money</th>
+      </tr>
+      <tr *ngFor="let player of rosters[team].players">
+        <td>{{ player.player }}</td>
+        <td>{{ player[current_year] }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

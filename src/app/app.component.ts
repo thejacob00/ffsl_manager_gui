@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GetTeamService } from './get-team.service';
+import { RosterService } from './roster.service';
 
 @Component({
   selector: 'app-root',
@@ -8,21 +9,29 @@ import { GetTeamService } from './get-team.service';
 })
 export class AppComponent {
 
+  current_year = "2022";
   user: any = [];
-  constructor(private getTeamService: GetTeamService) {
+  rosters: any = undefined;
+  teams: any = undefined;
+ 
+  constructor(
+    private getTeamService: GetTeamService,
+    private rosterService: RosterService,
+  ) {
   }
   
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.readTeamInfo();
+    this.rosters = await this.rosterService.getAllTeams();
+    this.teams = Object.keys(this.rosters);
   }
+
   readTeamInfo(): void {
     this.getTeamService.getTeamInfoFromCreds('jphelps', 'password').subscribe((data) => {
       this.user = data;
       console.log(this.user);
     });
   }
-  
 
   title = 'ffsl-manager-gui';
-  
 }
