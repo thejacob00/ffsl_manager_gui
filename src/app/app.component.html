@@ -1,21 +1,39 @@
-<div *ngIf="user">
-  Welcome {{ user.first_name }} {{ user.last_name }}!
-</div>
-<div *ngIf="!user">
-  Not logged in
-</div>
-<div *ngIf="rosters">
-  <div *ngFor="let team of teams">
-    <h3>{{ team }} - ${{ rosters[team].cap_space }}</h3>
-    <table>
-      <tr>
-        <th>Player</th>
-        <th>Money</th>
-      </tr>
-      <tr *ngFor="let player of rosters[team].players">
-        <td>{{ player.player }}</td>
-        <td>{{ player[current_year] }}</td>
-      </tr>
-    </table>
+<div class="row m-2">
+  <div *ngIf="user" class="col-12">
+    Welcome {{ user.first_name }} {{ user.last_name }}!
+  </div>
+  <div *ngIf="!user" class="col-12">
+    Not logged in
+  </div>
+  <div *ngIf="teams" class="col-8">
+    <div *ngFor="let team of teams">
+      <h3>{{ team.name }} - ${{ team.cap_space }}</h3>
+      <table>
+        <tr>
+          <th>Player</th>
+          <th>Money</th>
+        </tr>
+        <tr
+          *ngFor="let player of team.players"
+          [ngClass]="{
+            'bg-danger': !player.on_roster && !player.post_season_only,
+            'bg-warning': !player.on_roster && player.post_season_only,
+            'bg-info': player.on_roster && player.post_season_only,
+            'bg-secondary': player.is_franchised || (player.multi_year_deal && player[next_year] === undefined),
+            'bg-primary': player[next_year] !== undefined
+          }"
+        >
+          <td>{{ player.player }}</td>
+          <td>${{ player[current_year] }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="p-1 bg-danger">Not On Roster</div>
+    <div class="p-1 bg-warning">Not On Roster - Post Season Only</div>
+    <div class="p-1 bg-info">On Roster - Post Season Only</div>
+    <div class="p-1 bg-secondary">Cannot Be Franchised Next Year</div>
+    <div class="p-1 bg-primary">Multiyear Deal Next Year</div>
   </div>
 </div>

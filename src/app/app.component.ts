@@ -10,8 +10,8 @@ import { RosterService } from './roster.service';
 export class AppComponent {
 
   current_year = "2022";
+  next_year = "2023";
   user: any = [];
-  rosters: any = undefined;
   teams: any = undefined;
  
   constructor(
@@ -21,9 +21,8 @@ export class AppComponent {
   }
   
   async ngOnInit(): Promise<void> {
-    this.readTeamInfo();
-    this.rosters = await this.rosterService.getAllTeams();
-    this.teams = Object.keys(this.rosters);
+    //this.readTeamInfo();
+    this.teams = await this.rosterService.getAllTeams();
   }
 
   readTeamInfo(): void {
